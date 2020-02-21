@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        id="blinkid-cordova" 
+        version="4.11.1">
+
+    <name>BlinkIdScanner</name>
+    <description>A small and powerful ID card scanning library</description>
+    <license>MIT</license>
+    <keywords>ID</keywords>
+    <author>Microblink Team info@microblink.com</author>
+
+    <engines>
+        <engine name="cordova" version=">=7.0.0" />
+        <engine name="cordova-android" version=">=7.0.0" />
+    </engines>   
+
+    <js-module src="www/blinkIdScanner.js" name="BlinkIDScanner">
+        <clobbers target="cordova.plugins.BlinkID" />
+    </js-module>
+
+    <!-- android -->
+    <platform name="android">
+
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="BlinkIDScanner">
+                <param name="android-package" value="com.phonegap.plugins.microblink.MicroblinkScanner" />
+            </feature>
+        </config-file>
+
+        <config-file target="app/src/main/AndroidManifest.xml" parent="/manifest">
+            <uses-permission android:name="android.permission.CAMERA" />
+            <uses-permission android:name="android.permission.FLASHLIGHT" />
+            
+            <uses-feature android:name="android.hardware.camera" />
+            <uses-feature android:name="android.hardware.camera.autofocus" android:required="false" />
+            <uses-feature android:name="android.hardware.camera.flash" android:required="false" />
+
+            <supports-screens
+                android:anyDensity="true"
+                android:largeScreens="true"
+                android:normalScreens="true"
+                android:resizeable="true"
+                android:smallScreens="true" />
+        </config-file>
+
+        <config-file target="app/src/main/AndroidManifest.xml" parent="/manifest/application">
+            <activity
+                    android:name="com.microblink.activity.ScanCard"
+                    android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+                    android:configChanges="orientation|screenSize"
+                    android:screenOrientation="portrait" >
+            </activity>
+        </config-file>
+
+
+        <!-- ANDROID SOURCE FILES BEGIN -->
+        <source-file src="src/android/java/com/phonegap/plugins/microblink/MicroblinkScanner.java" target-dir="src/com/phonegap/plugins/microblink" />
+        <source-file src="src/android/java/com/phonegap/plugins/microblink/FakeR.java" target-dir="src/com/phonegap/plugins/microblink" />
+        <source-file src="src/android/java/com/phonegap/plugins/microblink/RecognizerType.java" target-dir="src/com/phonegap/plugins/microblink" />
+        <source-file src="src/android/java/com/phonegap/plugins/microblink/overlays/OverlaySettingsSerialization.java" target-dir="src/com/phonegap/plugins/microblink/overlays" />
+        <source-file src="src/android/java/com/phonegap/plugins/microblink/overlays/OverlaySettingsSerializers.java" target-dir="src/com/phonegap/plugins/microblink/overlays" />
+        <source-file src="src/android/java/com/phonegap/plugins/microblink/overlays/serialization/BlinkCardOverlaySettingsSerialization.java" target-dir="src/com/phonegap/plugins/microblink/overlays/serialization" />
+        <source-file src="src/android/java/com/phonegap/plugins/microblink/recognizers/RecognizerSerializers.java" target-dir="src/com/phonegap/plugins/microblink/recognizers" />
+        <source-file src="src/android/java/com/phonegap/plugins/microblink/recognizers/RecognizerSerialization.java" target-dir="src/com/phonegap/plugins/microblink/recognizers" />
+        <source-file src="src/android/java/com/phonegap/plugins/microblink/recognizers/serialization/BlinkCardRecognizerSerialization.java" target-dir="src/com/phonegap/plugins/microblink/recognizers/serialization" />
+        <source-file src="src/android/java/com/phonegap/plugins/microblink/recognizers/serialization/SerializationUtils.java" target-dir="src/com/phonegap/plugins/microblink/recognizers/serialization" />
+        <source-file src="src/android/java/com/phonegap/plugins/microblink/recognizers/serialization/BlinkIDSerializationUtils.java" target-dir="src/com/phonegap/plugins/microblink/recognizers/serialization" />
+        <!-- ANDROID SOURCE FILES END -->
+
+        <!-- resources -->
+        <resource-file src="src/android/res/raw/beep.mp3" target="res/raw/beep.mp3" />
+
+        <framework src="src/android/libBlinkID.gradle" custom="true" type="gradleReference" />
+        
+        <!--hook type="after_prepare" src="scripts/fix-largeheap.js" /-->
+    </platform>
+
+    <platform name="ios">
+        <!-- IOS SOURCE FILES BEGIN -->
+        <source-file src="src/ios/sources/MBBlinkIDSerializationUtils.m" />
+        <source-file src="src/ios/sources/CDVMicroblinkScanner.m" />
+        <source-file src="src/ios/sources/MBSerializationUtils.m" />
+        <header-file src="src/ios/sources/MBBlinkIDSerializationUtils.h" />
+        <header-file src="src/ios/sources/CDVMicroblinkScanner.h" />
+        <header-file src="src/ios/sources/MBSerializationUtils.h" />
+        <header-file src="src/ios/sources/Overlays/MBOverlayVCCreator.h" />
+        <source-file src="src/ios/sources/Overlays/MBOverlaySettingsSerializers.m" />
+        <header-file src="src/ios/sources/Overlays/MBOverlayViewControllerDelegate.h" />
+        <header-file src="src/ios/sources/Overlays/MBOverlaySettingsSerializers.h" />
+        <header-file src="src/ios/sources/Overlays/Serialization/MBBlinkCardOverlaySettingsSerialization.h" />
+        <source-file src="src/ios/sources/Overlays/Serialization/MBBlinkCardOverlaySettingsSerialization.m" />
+        <header-file src="src/ios/sources/Recognizers/MBRecognizerWrapper.h" />
+        <header-file src="src/ios/sources/Recognizers/MBRecognizerSerializers.h" />
+        <source-file src="src/ios/sources/Recognizers/MBRecognizerWrapper.m" />
+        <source-file src="src/ios/sources/Recognizers/MBRecognizerSerializers.m" />
+        <header-file src="src/ios/sources/Recognizers/Wrappers/MBBlinkCardRecognizerWrapper.h" />
+        <source-file src="src/ios/sources/Recognizers/Wrappers/MBBlinkCardRecognizerWrapper.m" />
+        <!-- IOS SOURCE FILES END -->
+        
+        <framework src="libc++.dylib" />
+        <framework src="libz.dylib" />
+        <framework src="libiconv.dylib" />
+
+        <framework src="CoreVideo.framework" />
+        <framework src="CoreText.framework" />
+        <framework src="CoreMedia.framework" />
+        <framework src="QuartzCore.framework" />
+        <framework src="AudioToolbox.framework" />
+        <framework src="OpenGLES.framework" />
+        <framework src="Accelerate.framework" />
+        <framework src="src/ios/Microblink.framework" custom="true" embed="true"/>
+        
+        <preference name="CAMERA_USAGE_DESCRIPTION" default=" " />
+        <config-file target="*-Info.plist" parent="NSCameraUsageDescription">
+            <string>$CAMERA_USAGE_DESCRIPTION</string>
+        </config-file>
+        
+        <resource-file src="src/ios/Microblink.bundle" />
+        <config-file target="config.xml" parent="/*">
+            <feature name="BlinkIDScanner">
+                <param name="ios-package" value="CDVMicroblinkScanner" />
+            </feature>
+        </config-file>
+        
+        <hook type="before_plugin_install" src="scripts/initIOSFramework.sh"/>
+    </platform>
+    
+</plugin>
