@@ -11,12 +11,18 @@ public final class BlinkCardRecognizerSerialization implements RecognizerSeriali
     @Override
     public Recognizer<?, ?> createRecognizer(JSONObject jsonRecognizer) {
         com.microblink.entities.recognizers.blinkcard.BlinkCardRecognizer recognizer = new com.microblink.entities.recognizers.blinkcard.BlinkCardRecognizer();
-        recognizer.setDetectGlare(true);
+        recognizer.setAnonymizeCardNumber(jsonRecognizer.optBoolean("anonymizeCardNumber", false));
+        recognizer.setAnonymizeCvv(jsonRecognizer.optBoolean("anonymizeCvv", false));
+        recognizer.setAnonymizeOwner(jsonRecognizer.optBoolean("anonymizeOwner", false));
+        recognizer.setDetectGlare(jsonRecognizer.optBoolean("detectGlare", true));
+        recognizer.setExtractCvv(jsonRecognizer.optBoolean("extractCvv", false));
+        recognizer.setExtractInventoryNumber(jsonRecognizer.optBoolean("extractInventoryNumber", false));
+        recognizer.setExtractOwner(jsonRecognizer.optBoolean("extractOwner", false));
         recognizer.setExtractValidThru(jsonRecognizer.optBoolean("extractValidThru", false));
-        recognizer.setExtractValidThru(false);
-        recognizer.setExtractCvv(false);
-        recognizer.setExtractInventoryNumber(false);
-        recognizer.setExtractOwner(false);
+        recognizer.setFullDocumentImageDpi(jsonRecognizer.optInt("fullDocumentImageDpi", 250));
+        recognizer.setFullDocumentImageExtensionFactors(BlinkIDSerializationUtils.deserializeExtensionFactors(jsonRecognizer.optJSONObject("fullDocumentImageExtensionFactors")));
+        recognizer.setReturnFullDocumentImage(jsonRecognizer.optBoolean("returnFullDocumentImage", false));
+        recognizer.setSignResult(jsonRecognizer.optBoolean("signResult", false));
         return recognizer;
     }
 
