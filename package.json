@@ -1,6 +1,6 @@
 {
   "name": "blinkcard-cordova",
-  "version": "5.2.0",
+  "version": "1.0.0",
   "description": "A small and powerful credit card scanning scanning library",
   "cordova": {
     "id": "blinkcard-cordova",
