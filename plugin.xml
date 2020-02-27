@@ -4,7 +4,7 @@
         id="blinkid-cordova" 
         version="4.11.1">
 
-    <name>BlinkIdScanner</name>
+    <name>BlinkCardScanner</name>
     <description>A small and powerful ID card scanning library</description>
     <license>MIT</license>
     <keywords>ID</keywords>
@@ -15,7 +15,7 @@
         <engine name="cordova-android" version=">=7.0.0" />
     </engines>   
 
-    <js-module src="www/blinkIdScanner.js" name="BlinkIDScanner">
+    <js-module src="www/BlinkCardScanner.js" name="BlinkCardScanner">
         <clobbers target="cordova.plugins.BlinkID" />
     </js-module>
 
@@ -23,7 +23,7 @@
     <platform name="android">
 
         <config-file target="res/xml/config.xml" parent="/*">
-            <feature name="BlinkIDScanner">
+            <feature name="BlinkCardScanner">
                 <param name="android-package" value="com.phonegap.plugins.microblink.MicroblinkScanner" />
             </feature>
         </config-file>
@@ -118,7 +118,7 @@
         
         <resource-file src="src/ios/Microblink.bundle" />
         <config-file target="config.xml" parent="/*">
-            <feature name="BlinkIDScanner">
+            <feature name="BlinkCardScanner">
                 <param name="ios-package" value="CDVMicroblinkScanner" />
             </feature>
         </config-file>

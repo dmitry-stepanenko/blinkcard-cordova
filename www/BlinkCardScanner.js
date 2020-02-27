@@ -12,9 +12,9 @@ var exec = require("cordova/exec");
 /**
  * Constructor.
  *
- * @returns {BlinkID}
+ * @returns {BlinkCard}
  */
-function BlinkID() {
+function BlinkCard() {
 
 };
 
@@ -35,21 +35,21 @@ function BlinkID() {
  *      showTimeLimitedLicenseKeyWarning: Boolean
  *  }
  */
-BlinkID.prototype.scanWithCamera = function (successCallback, errorCallback, overlaySettings, recognizerCollection, licenses) {
+BlinkCard.prototype.scanWithCamera = function (successCallback, errorCallback, overlaySettings, recognizerCollection, licenses) {
     if (errorCallback == null) {
         errorCallback = function () {
         };
     }
 
     if (typeof errorCallback != "function") {
-        console.log("BlinkIDScanner.scanWithCamera failure: failure parameter not a function");
-        throw new Error("BlinkIDScanner.scanWithCamera failure: failure parameter not a function");
+        console.log("BlinkCardScanner.scanWithCamera failure: failure parameter not a function");
+        throw new Error("BlinkCardScanner.scanWithCamera failure: failure parameter not a function");
         return;
     }
 
     if (typeof successCallback != "function") {
-        console.log("BlinkIDScanner.scanWithCamera failure: success callback parameter must be a function");
-        throw new Error("BlinkIDScanner.scanWithCamera failure: success callback parameter must be a function");
+        console.log("BlinkCardScanner.scanWithCamera failure: success callback parameter must be a function");
+        throw new Error("BlinkCardScanner.scanWithCamera failure: success callback parameter must be a function");
         return;
     }
 
@@ -79,7 +79,7 @@ BlinkID.prototype.scanWithCamera = function (successCallback, errorCallback, ove
                 }
             }    
         },
-        errorCallback, 'BlinkIDScanner', 'scanWithCamera', [overlaySettings, recognizerCollection, licenses]);
+        errorCallback, 'BlinkCardScanner', 'scanWithCamera', [overlaySettings, recognizerCollection, licenses]);
 };
 
 // COMMON CLASSES
@@ -113,14 +113,14 @@ var RecognizerResultState = Object.freeze(
 /**
  * Possible states of the Recognizer's result
  */
-BlinkID.prototype.RecognizerResultState = RecognizerResultState;
+BlinkCard.prototype.RecognizerResultState = RecognizerResultState;
 
 /**
  * Base class for all recognizer's result objects.
  * Recoginzer result contains data extracted from the image.
  */
 function RecognizerResult(resultState) {
-    /** State of the result. It is always one of the values represented by BlinkIDScanner.RecognizerResultState enum */
+    /** State of the result. It is always one of the values represented by BlinkCardScanner.RecognizerResultState enum */
     this.resultState = resultState;
 }
 
@@ -152,7 +152,7 @@ function RecognizerCollection(recognizerArray) {
     }
 }
 
-BlinkID.prototype.RecognizerCollection = RecognizerCollection;
+BlinkCard.prototype.RecognizerCollection = RecognizerCollection;
 
 /**
  * Represents a date extracted from image.
@@ -166,13 +166,13 @@ function Date(nativeDate) {
     this.year = nativeDate.year;
 }
 
-BlinkID.prototype.Date = Date;
+BlinkCard.prototype.Date = Date;
 
 
 /**
  * Supported BlinkCard card issuer values.
  */
-BlinkID.prototype.CardIssuer = Object.freeze(
+BlinkCard.prototype.CardIssuer = Object.freeze(
     {
         /** Unidentified Card */
         Other: 1,
@@ -248,7 +248,7 @@ function ImageExtensionFactors() {
     this.leftFactor = 0.0;
 }
 
-BlinkID.prototype.ImageExtensionFactors = ImageExtensionFactors;
+BlinkCard.prototype.ImageExtensionFactors = ImageExtensionFactors;
 
 // COMMON CLASSES
 
@@ -281,7 +281,7 @@ function BlinkCardOverlaySettings() {
 }
 BlinkCardOverlaySettings.prototype = new OverlaySettings();
 
-BlinkID.prototype.BlinkCardOverlaySettings = BlinkCardOverlaySettings;
+BlinkCard.prototype.BlinkCardOverlaySettings = BlinkCardOverlaySettings;
 
 
 // OVERLAY SETTINGS
@@ -362,7 +362,7 @@ function BlinkCardRecognizerResult(nativeResult) {
 
 BlinkCardRecognizerResult.prototype = new RecognizerResult(RecognizerResultState.empty);
 
-BlinkID.prototype.BlinkCardRecognizerResult = BlinkCardRecognizerResult;
+BlinkCard.prototype.BlinkCardRecognizerResult = BlinkCardRecognizerResult;
 
 /**
  * Recognizer used for scanning the front side of credit/debit cards.
@@ -462,10 +462,10 @@ function BlinkCardRecognizer() {
 
 BlinkCardRecognizer.prototype = new Recognizer('BlinkCardRecognizer');
 
-BlinkID.prototype.BlinkCardRecognizer = BlinkCardRecognizer;
+BlinkCard.prototype.BlinkCardRecognizer = BlinkCardRecognizer;
 
 
 // RECOGNIZERS
 
-// export BlinkIDScanner
-module.exports = new BlinkID();
+// export BlinkCardScanner
+module.exports = new BlinkCard();
